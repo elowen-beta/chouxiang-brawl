@@ -16,7 +16,7 @@
 
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "eraseableSyntaxOnly": true,
+    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src", "scripts"]
