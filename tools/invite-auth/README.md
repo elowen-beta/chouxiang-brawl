@@ -6,7 +6,7 @@
 
 ## 做什么
 
-- `GET /brawl/` 公开入口（本目录的 `index.html`）：本地 2–4 人，版本卡片指向 `/brawl/v0.1.0/`。
+- `GET /brawl/` 公开入口（本目录的 `index.html`）：本地 2–4 人，版本卡片指向 `/brawl/v0.1.1/`。已安装的 `/brawl/v0.1.0/` 留作静态存档，不从入口卡片进入。
 - `GET /brawl/register`、`GET /brawl/login` 公开。
 - `POST /brawl/api/register` 字段 `invite`、`username`（2–24）、`password`（至少 8 位，最长 128）。成功时 `303` 到 `/brawl/`，并种下会话 cookie。
 - `POST /brawl/api/login` 成功后 `303`。`next` 只接受本站 `/brawl` 路径，其它地址回到 `/brawl/`。
@@ -24,7 +24,7 @@ brawl_session=...; HttpOnly; Secure; SameSite=Lax; Path=/brawl; Max-Age=604800
 
 密码是 PBKDF2-HMAC-SHA256，200000 次，每用户随机盐。邀请码在 `BEGIN IMMEDIATE` 里核销，用过一次就不能再注册。用户名大小写不敏感（SQLite `NOCASE`，ASCII）。
 
-数据库默认 `/var/lib/brawl-auth/brawl.db`（`BRAWL_DB`）。静态文件默认 `/var/www/brawl`（`BRAWL_STATIC`）。版本页对应 `/var/www/brawl/v0.1.0/index.html`，不要把对局文件放在 `/var/www/brawl/index.html`。
+数据库默认 `/var/lib/brawl-auth/brawl.db`（`BRAWL_DB`）。静态文件默认 `/var/www/brawl`（`BRAWL_STATIC`）。当前版本页是 `/var/www/brawl/v0.1.1/index.html`。`/var/www/brawl/v0.1.0/` 若已存在，保持原样当存档，不要覆盖或删除。不要把对局文件放在 `/var/www/brawl/index.html`。
 
 ## 本地测试
 
@@ -48,8 +48,8 @@ npm run build
 export BRAWL_DB=/tmp/brawl-auth-dev/brawl.db
 export BRAWL_STATIC=/tmp/brawl-auth-dev/www
 export BRAWL_PORT=43180
-mkdir -p "$(dirname "$BRAWL_DB")" "$BRAWL_STATIC/v0.1.0"
-cp -a ../../dist/. "$BRAWL_STATIC/v0.1.0/"
+mkdir -p "$(dirname "$BRAWL_DB")" "$BRAWL_STATIC/v0.1.1"
+cp -a ../../dist/. "$BRAWL_STATIC/v0.1.1/"
 python3 manage.py new 20
 python3 app.py
 ```
@@ -81,12 +81,12 @@ sudo python3 manage.py ls
 
    确认输出是 `src="./assets/..."`。
 
-2. 在服务器上准备目录，并放上对局文件和程序。`dist/` 的内容进版本目录，不是 `/var/www/brawl/` 根：
+2. 在服务器上准备目录，并放上对局文件和程序。`dist/` 的内容进 `/var/www/brawl/v0.1.1/`，不是 `/var/www/brawl/` 根。不要覆盖或删除已经放好的 `/var/www/brawl/v0.1.0/`，那一份静态文件留作存档。
 
    ```bash
-   sudo mkdir -p /opt/brawl-auth /var/lib/brawl-auth /var/www/brawl/v0.1.0
+   sudo mkdir -p /opt/brawl-auth /var/lib/brawl-auth /var/www/brawl/v0.1.1
    sudo chmod 700 /var/lib/brawl-auth
-   sudo cp -a dist/. /var/www/brawl/v0.1.0/
+   sudo cp -a dist/. /var/www/brawl/v0.1.1/
    sudo cp tools/invite-auth/app.py tools/invite-auth/manage.py tools/invite-auth/index.html /opt/brawl-auth/
    sudo cp tools/invite-auth/brawl-auth.service /etc/systemd/system/brawl-auth.service
    sudo systemctl daemon-reload
@@ -129,7 +129,7 @@ sudo python3 manage.py ls
 
    ```bash
    curl -sI "https://YOUR_HOST/brawl/" | head
-   curl -sI "https://YOUR_HOST/brawl/v0.1.0/" | head
+   curl -sI "https://YOUR_HOST/brawl/v0.1.1/" | head
    ```
 
-   入口应是 200。版本页在没有会话时应是 `303`，`Location` 指向 `/brawl/login?next=...`。注册一张码后再打开 v0.1.0 卡片，游戏脚本从 `./assets/` 加载。
+   入口应是 200。v0.1.1 版本页在没有会话时应是 `303`，`Location` 指向 `/brawl/login?next=...`。注册一张码后再打开 v0.1.1 卡片，游戏脚本从 `./assets/` 加载。`/brawl/v0.1.0/` 仍可留在磁盘上当存档，入口不再指向它。

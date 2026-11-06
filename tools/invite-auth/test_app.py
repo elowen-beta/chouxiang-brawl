@@ -167,7 +167,8 @@ class InviteAuthTests(unittest.TestCase):
         home, _, landing = self.request("GET", "/brawl/")
         self.assertEqual(home, 200)
         self.assertIn("不是在线对战".encode(), landing)
-        self.assertIn(b'href="/brawl/v0.1.0/"', landing)
+        self.assertIn(b'href="/brawl/v0.1.1/"', landing)
+        self.assertIn(b">v0.1.1<", landing)
         self.assertIn(b'href="/brawl/register"', landing)
         self.assertIn(b'href="/brawl/login"', landing)
 
