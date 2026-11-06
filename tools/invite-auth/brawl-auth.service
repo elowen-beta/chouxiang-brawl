@@ -1,0 +1,16 @@
+[Unit]
+Description=Brawl invite registration
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/brawl-auth
+ExecStart=/usr/bin/python3 /opt/brawl-auth/app.py
+Environment=BRAWL_PORT=43180
+Environment=BRAWL_DB=/var/lib/brawl-auth/brawl.db
+Environment=BRAWL_STATIC=/var/www/brawl
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

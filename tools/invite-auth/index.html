@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>抽象大乱斗</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 18% 0%, rgba(122, 215, 240, 0.16), transparent 32rem),
+          #140e22;
+        color: #efe6d8;
+        font-family: "PingFang SC", "Noto Sans SC", "Source Han Sans SC", sans-serif;
+      }
+      main { max-width: 40rem; margin: 0 auto; padding: 4.5rem 1.25rem 4rem; }
+      .mark {
+        margin: 0 0 0.7rem;
+        color: #7ad7f0;
+        letter-spacing: 0.12em;
+        font-size: 0.82rem;
+      }
+      h1 { margin: 0; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.05; }
+      .lede { max-width: 36rem; font-size: 1.08rem; line-height: 1.65; color: #f6efe4; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1.4rem 0 1.8rem; }
+      .actions a, button {
+        border-radius: 999px;
+        padding: 0.7rem 1.1rem;
+        font: inherit;
+        text-decoration: none;
+      }
+      .actions a { background: #ffd27a; color: #1a0c28; font-weight: 700; }
+      .actions a.ghost { background: transparent; color: #ffd27a; box-shadow: inset 0 0 0 1px #ffd27a; }
+      .card {
+        display: block;
+        padding: 1.15rem 1.2rem 1.2rem;
+        border-radius: 1rem;
+        background: #1c1430;
+        color: inherit;
+        text-decoration: none;
+        box-shadow: inset 0 0 0 1px rgba(255, 210, 122, 0.35);
+      }
+      .card span { display: block; color: #ffd27a; font-size: 0.85rem; letter-spacing: 0.08em; }
+      .card strong { display: block; margin: 0.25rem 0; font-size: 1.45rem; }
+      .card em { display: block; font-style: normal; color: #d5def2; line-height: 1.5; }
+      form { margin-top: 1.6rem; }
+      button {
+        background: transparent;
+        color: #c9b8e6;
+        border: 0;
+        padding-left: 0;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="mark">本地 2–4 人</p>
+      <h1>抽象大乱斗</h1>
+      <p class="lede">
+        同一台键盘上开打，也可以插手柄。百分比、击飞、三条命，都在这台机器上算完。
+        不是在线对战，也没有联网双人。
+      </p>
+      <p class="actions">
+        <a href="/brawl/register">用邀请码注册</a>
+        <a class="ghost" href="/brawl/login">登录</a>
+      </p>
+      <a class="card" href="/brawl/v0.1.0/">
+        <span>v0.1.0</span>
+        <strong>当前可玩版本</strong>
+        <em>方方、滚滚、刺刺、稳稳、泡泡、推石人。打开前要先注册登录。</em>
+      </a>
+      <form method="post" action="/brawl/api/logout">
+        <button type="submit">退出登录</button>
+      </form>
+    </main>
+  </body>
+</html>
