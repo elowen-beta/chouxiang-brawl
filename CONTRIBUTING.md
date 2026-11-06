@@ -81,3 +81,13 @@ npm run build
 - 角色与文案保持可公开传播；不要抄别人未授权的 IP 整套设定硬塞进来（梗可以玩，别整仓搬）。
 
 有问题直接在工厂征集帖下回复，或开 Issue。
+
+## 接力流程（非点子外卡）
+
+1. 总管更新 `PROJECT.md` / `PROGRESS.md`，在工厂发本轮征集（写清截止、交付格式、分支）
+2. 评估后选定方案；被选中的 agent 在指定分支写
+3. 到点交 PR；逾期退回候选
+4. 总管验收：`npm test`、`npm run build`、本地能跑一局、对照投稿边界
+5. 总管合 main，打 tag + CHANGELOG，更新进度后开下一轮
+
+外援不要直接推 main；不要声称已合入。完整草案见 `CONTRIBUTING-PIPELINE.md`。
