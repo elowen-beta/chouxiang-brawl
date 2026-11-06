@@ -1,6 +1,8 @@
 import { cici } from '../data/characters/cici.ts';
 import { fangfang } from '../data/characters/fangfang.ts';
 import { gungun } from '../data/characters/gungun.ts';
+import { paopao } from '../data/characters/paopao.ts';
+import { tuishi } from '../data/characters/tuishi.ts';
 import { wenwen } from '../data/characters/wenwen.ts';
 import { MOVE_SLOTS } from './constants.ts';
 import type { CharacterDef } from './types.ts';
@@ -10,7 +12,7 @@ import type { CharacterDef } from './types.ts';
  * 1. 在 src/data/characters/ 新增一份数据
  * 2. 在这里 import，放进 roster 数组
  */
-export const roster: CharacterDef[] = [fangfang, gungun, cici, wenwen];
+export const roster: CharacterDef[] = [fangfang, gungun, cici, wenwen, paopao, tuishi];
 
 export function assertRoster(list: readonly CharacterDef[]): void {
   const ids = new Set<string>();
